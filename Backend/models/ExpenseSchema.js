@@ -1,49 +1,29 @@
 import mongoose from "mongoose";
 
-
 const expenseSchema = new mongoose.Schema({
-  employeeId: {
+  employee: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "Employee",
     required: true
   },
-  category: {
-    type: String,
-    required: true
-  },
-  amount: {
-    type: Number,
-    required: true
-  },
-  receipt: {
-    type: String, // URL or path to stored receipt image
-    required: true
-  },
-  date: {
-    type: Date,
-    default: Date.now
-  },
+  name: { type: String, required: true }, // Employee name
+  description: { type: String, required: true },
+  billDate: { type: Date, required: true },
+  category: { type: String, required: true, enum: ["Travel", "Food", "Supplies", "Other"] },
+  paidBy: { type: String, required: true },
+  remarks: { type: String },
+  amount: { type: Number, required: true, min: 0 },
+  receipt: { type: String }, // Path to uploaded receipt
   status: {
     type: String,
-    enum: ['Pending', 'Approved', 'Rejected'],
-    default: 'Pending'
+    enum: ["Draft", "Pending", "Approved", "Rejected", "Completed"],
+    default: "Draft"
   },
-  managerId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  adminId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  },
-  approvalDate: {
-    type: Date
-  },
-  comments: {
-    type: String
-  }
+  manager: { type: mongoose.Schema.Types.ObjectId, ref: "Employee" }, // Manager who approved/rejected
+  approvalDate: { type: Date },
+  comments: { type: String }, // Manager's comments
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now }
 });
 
-const Expense = mongoose.model('Expense', expenseSchema);
-
-export default Expense
+export default mongoose.model("Expense", expenseSchema);
