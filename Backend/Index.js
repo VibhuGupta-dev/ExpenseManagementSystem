@@ -7,7 +7,7 @@ import express, { urlencoded } from "express";
   import connectDB from "./config/mongoose-connection.js";
   import cookieParser from "cookie-parser";
   import cors from "cors";
-  
+  import approvalRuleRoutes from "./routes/ApprovalRuleRoutes.js"
 
   // Load environment variables
   config();
@@ -25,21 +25,27 @@ import express, { urlencoded } from "express";
   
 
   // Middleware
-  app.use(cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  }));
+ app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    process.env.FRONTEND_URL
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
+
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
 
   // Routes
   app.use("/api/auth", authRoutes);
-  app.use("/api/users", addUser);
   app.use("/api/employee", employeeRoutes);
   app.use("/api/manager", managerRoutes);
+  app.use("/users" , addUser)
+  app.use("/api/admin", approvalRuleRoutes);
 
 
   // Error handling middleware
