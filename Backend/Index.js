@@ -1,6 +1,8 @@
 import express, { urlencoded } from "express";
   import authRoutes from "./routes/AuthRoutes.js";
   import addUser from "./routes/AdminView.js";
+  import employeeRoutes from "./routes/EmployeeRoute.js";
+  import managerRoutes from "./routes/ManagerRoute.js";
   import { config } from "dotenv";
   import connectDB from "./config/mongoose-connection.js";
   import cookieParser from "cookie-parser";
@@ -36,6 +38,9 @@ import express, { urlencoded } from "express";
   // Routes
   app.use("/api/auth", authRoutes);
   app.use("/api/users", addUser);
+  app.use("/api/employee", employeeRoutes);
+  app.use("/api/manager", managerRoutes);
+
 
   // Error handling middleware
   app.use((err, req, res, next) => {
