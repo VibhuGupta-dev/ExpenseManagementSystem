@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Signup from './Pages/Signup';
 import Login from './Pages/Login';
-import Dashboard from './Pages/Dashboard';
 import AddUser from './Pages/Adduser';
 import Roles from './Pages/Roles';
 import EmployeeDashboard from './Pages/EmployeeDashboard';
