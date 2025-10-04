@@ -1,11 +1,11 @@
 import express from "express";
 import { createApprovalRule, getAllApprovalRules, updateApprovalRule, deleteApprovalRule } from "../controller/AprovalRuleController.js"; // Fixed typo
-import authMiddleware from "../middleware/authMiddleware.js";
+import { authenticateToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 // Protect all routes with admin middleware
-router.use(authMiddleware);
+router.use(authenticateToken);
 
 // CRUD Routes
 router.post("/rules", createApprovalRule);

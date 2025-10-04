@@ -4,7 +4,7 @@ import {
   updateExpenseStatus,
   getAllExpenses
 } from "../controller/ManagerView.js";
-import authenticateToken from "../middleware/authMiddleware.js";
+import { authenticateToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 

@@ -1,31 +1,25 @@
 import express, { urlencoded } from "express";
-  import authRoutes from "./routes/AuthRoutes.js";
-  import addUser from "./routes/AdminView.js";
-  import employeeRoutes from "./routes/EmployeeRoute.js";
-  import managerRoutes from "./routes/ManagerRoute.js";
-  import { config } from "dotenv";
-  import connectDB from "./config/mongoose-connection.js";
-  import cookieParser from "cookie-parser";
-  import cors from "cors";
-  import approvalRuleRoutes from "./routes/ApprovalRuleRoutes.js"
+import authRoutes from "./routes/AuthRoutes.js";
+import adminRoutes from "./routes/AdminView.js"; // Ensure this path is correct
+import employeeRoutes from "./routes/EmployeeRoute.js";
+import managerRoutes from "./routes/ManagerRoute.js";
+import { config } from "dotenv";
+import connectDB from "./config/mongoose-connection.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import approvalRuleRoutes from "./routes/ApprovalRuleRoutes.js";
 
-  // Load environment variables
-  config();
-  console.log("Loaded Environment Variables:");
-  console.log("EMAIL_USER:", process.env.EMAIL_USER);
-  console.log("EMAIL_PASS (masked):", process.env.EMAIL_PASS ? process.env.EMAIL_PASS.substring(0, 4) + "" : "undefined");
-  console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
+config();
+console.log("Loaded Environment Variables:");
+console.log("EMAIL_USER:", process.env.EMAIL_USER);
+console.log("EMAIL_PASS (masked):", process.env.EMAIL_PASS ? process.env.EMAIL_PASS.substring(0, 4) + "" : "undefined");
+console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
 
-  const app = express();
+const app = express();
 
-  // Connect to MongoDB
-  connectDB();
+connectDB();
 
-  // Test email connection
-  
-
-  // Middleware
- app.use(cors({
+app.use(cors({
   origin: [
     "http://localhost:5173",
     "http://localhost:5174",
@@ -36,31 +30,26 @@ import express, { urlencoded } from "express";
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
-  app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-  // Routes
-  app.use("/api/auth", authRoutes);
-  app.use("/api/employee", employeeRoutes);
-  app.use("/api/manager", managerRoutes);
-  app.use("/users" , addUser)
-  app.use("/api/admin", approvalRuleRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes); // Ensure this line is present and correct
+app.use("/api/employee", employeeRoutes);
+app.use("/api/manager", managerRoutes);
+app.use("/api/admin", approvalRuleRoutes); // Keep approval rules under /api/admin
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ success: false, message: "Something went wrong!" });
+});
 
-  // Error handling middleware
-  app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ success: false, message: "Something went wrong!" });
-  });
+app.use((req, res) => {
+  res.status(404).json({ success: false, message: "Route not found" });
+});
 
-  // Handle 404
-  app.use((req, res) => {
-    res.status(404).json({ success: false, message: "Route not found" });
-  });
-
-  // Start server
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT} at ${new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })}`);
-  });
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT} at ${new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })}`);
+});

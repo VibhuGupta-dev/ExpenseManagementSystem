@@ -1,6 +1,6 @@
 import express from "express";
 import { signupUser, loginUser, logout, getProfile, forgotPassword } from "../controller/Auth-controller.js"
-import authMiddleware from "../middleware/authMiddleware.js";
+import { authenticateToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.post("/login", loginUser);
 router.post("/logout", logout);
 
 // Get profile route (protected)
-router.get("/profile", authMiddleware, getProfile);
+router.get("/profile", authenticateToken , getProfile);
 
 // Forgot password route
 router.post("/forgot-password", forgotPassword);
