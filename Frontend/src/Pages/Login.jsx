@@ -85,7 +85,16 @@ const Login = () => {
       console.log('Login successful', response.data);
 
       setTimeout(() => {
-        navigate('/dashboard', { replace: true });
+        const userRole = response.data.user.role;
+        if (userRole === 'admin') {
+          navigate('/add-user');
+        } else if (userRole === 'employee') {
+          navigate('/employee-dashboard');
+        } else if (userRole === 'manager') {
+          navigate('/manager-dashboard');
+        } else {
+          navigate('/dashboard'); // Fallback
+        }
       }, 1500);
 
     } catch (error) {
