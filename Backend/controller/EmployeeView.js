@@ -6,7 +6,7 @@ import path from "path";
 // Multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./uploads/receipts"); // make sure folder exists
+    cb(null, "./uploads/receipts"); // Ensure this folder exists
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -29,29 +29,57 @@ export const getProfile = async (req, res) => {
 // Get employee expenses
 export const getExpenses = async (req, res) => {
   try {
-    const expenses = await ExpenseModel.find({ employee: req.user.id });
+    const expenses = await ExpenseModel.find({ employee: req.user.id })
+      .sort({ createdAt: -1 });
     res.json(expenses);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-// Submit new expense with receipt
+// Submit new expense with draft status
 export const submitExpense = async (req, res) => {
   try {
-    const { amount, description } = req.body;
-    if (!req.file) return res.status(400).json({ message: "Receipt is required" });
+    const { name, description, billDate, category, paidBy, remarks, amount } = req.body;
+    const employee = await EmployeeModel.findById(req.user.id);
+
+    if (!name || !description || !billDate || !category || !paidBy || !amount) {
+      return res.status(400).json({ message: "All fields except remarks are required" });
+    }
 
     const newExpense = new ExpenseModel({
       employee: req.user.id,
-      amount,
+      name: employee.Fullname, // Use employee's full name
       description,
-      receipt: req.file.path,
-      status: "Pending",
+      billDate: new Date(billDate),
+      category,
+      paidBy,
+      remarks,
+      amount: parseFloat(amount),
+      receipt: req.file ? req.file.path : null,
+      status: "Draft" // Initial status
     });
 
     await newExpense.save();
-    res.status(201).json({ message: "Expense submitted successfully", expense: newExpense });
+    res.status(201).json({ message: "Expense saved as draft", expense: newExpense });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Submit draft to pending (separate endpoint)
+export const submitToPending = async (req, res) => {
+  try {
+    const { expenseId } = req.params;
+    const expense = await ExpenseModel.findOne({ _id: expenseId, employee: req.user.id, status: "Draft" });
+
+    if (!expense) {
+      return res.status(404).json({ message: "Draft expense not found or not authorized" });
+    }
+
+    expense.status = "Pending";
+    await expense.save();
+    res.json({ message: "Expense submitted for approval", expense });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

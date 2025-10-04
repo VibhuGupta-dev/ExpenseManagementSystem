@@ -3,8 +3,8 @@ import {
   getPendingExpenses,
   updateExpenseStatus,
   getAllExpenses
-} from "../controllers/ManagerView.js";
-import authenticateToken from "../middlewares/auth.js";
+} from "../controller/ManagerView.js";
+import authenticateToken from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
