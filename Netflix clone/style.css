@@ -1,0 +1,247 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    background-color: black;
+}
+
+.main {
+    height: 630px;
+    background-image: url("assets/Images/bg.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: max(1200px, 100vw);
+    position: relative;
+}
+
+.main .box {
+    height: 630px;
+    background-color: rgba(0, 0, 0, 0.65)
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 80vw;
+    margin: auto;
+    height: 100px;
+}
+
+.btn {
+    font-size: 17px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    width: 110px;
+    height: 30px;
+    border-radius: 5px;
+    padding: 3px 8px;
+}
+
+.btn-sign {
+    background-color: rgb(209, 14, 14);
+    ;
+    font-weight: 600;
+}
+
+nav img {
+    position: relative;
+    z-index: 10;
+
+}
+
+nav .btn {
+    position: relative;
+    z-index: 10px;
+}
+
+.data span,.enter {
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    height: 100%;
+    position: relative;
+    top: 140px;
+    line-height: 60px;
+}
+
+.span1 {
+    font-size: 55px;
+    font-weight: 800;
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    ;
+}
+
+.span2 {
+    font-size: 24px;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.span3 {
+    font-size: 17px;
+}
+
+.enterdata {
+    border-radius: 5px;
+    width: 300px;
+    height: 21px;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 15px 20px;
+}
+
+.enter .btn-started {
+    width: 250px;
+    height: 55px;
+    background-color: rgb(209, 14, 14);
+    font-weight: 700;
+    color: white;
+    font-size: 20px;
+    position: relative;
+    top: 3px;
+}
+
+.seperation {
+    height: 5px;
+    background-color: rgb(46, 44, 44);
+}
+
+*::placeholder {
+    color: white;
+}
+
+.first {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    max-width: 70vw;
+    margin: auto;
+    color: white;
+}
+
+.secImg {
+    position: relative;
+}
+
+.secImg img {
+    width: 30vw;
+    position: relative;
+    z-index: 10;
+}
+
+.secImg video {
+    position: absolute;
+    top: 65px;
+    width: 26vw;
+    right: 0px;
+}
+section.first .cont{
+    display:flex;
+    flex-direction: column;
+}
+.cont >div:first-child{
+    font-family:Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+    font-weight: 600;
+    font-size: 48px;
+    position: relative;
+    left: 20px;
+}
+.cont >div:nth-child(2){
+    margin:20px;
+    font-family:Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+font-size: 20px;
+}
+.secImg2{
+    display: flex;
+    justify-content:center;
+    align-content: center;
+    margin:auto;
+    width: 70vw;
+    position:relative;
+}
+.secImg2 img{
+    position:relative;
+    width:30vw;
+    z-index: 10;
+}
+.secImg2 .video{
+    position: absolute;
+    top:32px;
+    width:300px;
+}
+.para4{
+display: flex;
+justify-content: center;
+align-content: center; 
+}
+.cont2{
+    position: relative;
+top:100px
+}
+.faqs{
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+}
+p{
+    color: white;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin:60px;
+    font-size: xx-large;
+    font-weight: 900;
+}
+.faqs .faqbox{
+    background-color: rgb(72, 69, 69);
+    color: white;
+    padding:20px;
+    display: flex;
+    font-size: larger;
+    width:60vw;
+    justify-content: space-between;
+    margin:35px auto;
+    transition: all 0.5s ease-in-out;
+}
+.faqbox:hover{
+    background-color: rgb(32, 32, 32);
+    color:red;
+}
+footer{
+    margin:90px 90px;
+    font-size: large;
+    font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif; 
+} 
+
+.foot{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin:70px ;
+    
+}
+.footer-item{
+    display: flex;
+    flex-direction: column;
+    gap:23px;
+}
+.footer-item a, footer,footer a{
+    color: rgb(156, 155, 155);
+}
+.foot1{
+    position: relative;
+    top:200px;
+}
+.span4{
+    position:relative;
+    left:400px;
+    color: white;
+}
+.pos{
+    position: relative;
+    bottom:100px;
+}
+.sep{
+    height:400px;
+}
