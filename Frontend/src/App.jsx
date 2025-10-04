@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import Signup from './Pages/Signup';
 import Login from './Pages/Login';
 import Dashboard from './Pages/Dashboard';
-import AddUser from './Pages/Adduser.jsx';
-import Roles from './Pages/Roles.jsx';
+import AddUser from './Pages/Adduser';
+import Roles from './Pages/Roles';
+import EmployeeDashboard from './Pages/EmployeeDashboard';
+import EmployeeNewBill from './Pages/EmployeeNewBill';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, role }) => {
@@ -17,7 +19,13 @@ const ProtectedRoute = ({ children, role }) => {
     } else {
       const user = JSON.parse(localStorage.getItem('user')); // Assume user data is stored after login
       if (user && user.role !== role) {
-        navigate('/login');
+        if (user.role === 'employee') {
+          navigate('/employee-dashboard');
+        } else if (user.role === 'admin') {
+          navigate('/add-user');
+        } else {
+          navigate('/login');
+        }
       }
     }
   }, [token, navigate, role]);
@@ -45,6 +53,22 @@ const App = () => {
           element={
             <ProtectedRoute role="admin">
               <Roles />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employee-dashboard"
+          element={
+            <ProtectedRoute role="employee">
+              <EmployeeDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employee-new-bill"
+          element={
+            <ProtectedRoute role="employee">
+              <EmployeeNewBill />
             </ProtectedRoute>
           }
         />
