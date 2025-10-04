@@ -1,0 +1,13 @@
+.adduser-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #556B2F;
+  border-radius: 5px;
+}
+
+.adduser-container h2 {
+  text-align: center;
+  color: #556B2F;
+}
