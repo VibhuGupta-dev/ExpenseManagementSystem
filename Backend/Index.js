@@ -1,12 +1,13 @@
 import express, { urlencoded } from "express";
-import authRoutes from "./routes/authRoutes.js";
-import { config } from "dotenv";
+import authRoutes from "./routes/AuthRoutes.js";
+import adminView from "./routes/AdminView.js";
+import dotenv from "dotenv";
 import connectDB from "./config/mongoose-connection.js"; // Updated path based on error
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
 // Load environment variables
-config();
+dotenv.config();
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/user", adminView);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -3,7 +3,7 @@ import userModel from "../models/UserSchema.js";
 import generateToken from "../utils/GenerateToken.js";
 import cors from "cors";
 import crypto from "crypto";
-import { sendResetPasswordEmail } from "../utils/emailService.js";
+import { sendResetPasswordEmail } from "../utils/EmailService.js";
 
 // CORS configuration
 const corsOptions = {
