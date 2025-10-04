@@ -35,7 +35,6 @@ import express, { urlencoded } from "express";
 
   // Routes
   app.use("/api/auth", authRoutes);
-  app.use("/api/users", addUser);
 
   // Error handling middleware
   app.use((err, req, res, next) => {
