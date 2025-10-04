@@ -2,9 +2,8 @@ import Joi from "joi";
 import userModel from "../models/UserSchema.js";
 import generateToken from "../utils/GenerateToken.js";
 import cors from "cors";
-import nodemailer from "nodemailer";
 import crypto from "crypto";
-import { sendResetPasswordEmail } from "../utils/EmailService.js";
+import { sendResetPasswordEmail } from "../utils/emailService.js";
 
 // CORS configuration
 const corsOptions = {
@@ -47,15 +46,6 @@ const forgotPasswordSchema = Joi.object({
     "string.email": "Please enter a valid email address",
     "string.empty": "Email is required",
   }),
-});
-
-// Nodemailer configuration
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
 });
 
 // Function to generate a random 6-digit password
@@ -241,7 +231,12 @@ export const forgotPassword = async (req, res) => {
     await user.save();
 
     // Send new password via email
-    await sendResetPasswordEmail({ email, Fullname: user.Fullname, newPassword });
+    try {
+      await sendResetPasswordEmail({ email, Fullname: user.Fullname, newPassword });
+    } catch (emailError) {
+      console.error("Error sending email:", emailError);
+      return res.status(500).json({ success: false, message: "Failed to send new password email" });
+    }
 
     return res.status(200).json({ success: true, message: "New password sent to your email" });
   } catch (error) {

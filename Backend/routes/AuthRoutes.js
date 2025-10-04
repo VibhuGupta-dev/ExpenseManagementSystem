@@ -1,5 +1,5 @@
 import express from "express";
-import { signupUser, loginUser, logout, getProfile, forgotPassword } from "../controllers/faltu.js"
+import { signupUser, loginUser, logout, getProfile, forgotPassword } from "../controller/Auth-controller.js"
 import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
