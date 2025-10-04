@@ -1,5 +1,6 @@
 import express, { urlencoded } from "express";
-  import authRoutes from "./routes/authRoutes.js";
+  import authRoutes from "./routes/AuthRoutes.js";
+  import addUser from "./routes/AdminView.js";
   import { config } from "dotenv";
   import connectDB from "./config/mongoose-connection.js";
   import cookieParser from "cookie-parser";
@@ -10,7 +11,7 @@ import express, { urlencoded } from "express";
   config();
   console.log("Loaded Environment Variables:");
   console.log("EMAIL_USER:", process.env.EMAIL_USER);
-  console.log("EMAIL_PASS (masked):", process.env.EMAIL_PASS ? process.env.EMAIL_PASS.substring(0, 4) + "****" : "undefined");
+  console.log("EMAIL_PASS (masked):", process.env.EMAIL_PASS ? process.env.EMAIL_PASS.substring(0, 4) + "" : "undefined");
   console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
 
   const app = express();
