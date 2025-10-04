@@ -24,9 +24,9 @@ export const sendResetPasswordEmail = async ({ email, Fullname, newPassword }) =
   const mailOptions = {
     from: process.env.EMAIL_USER, // ✅ must match Gmail account
     to: email,
-    subject: "Your New Admin Password",
+    subject: "Your New Password",
     html: `<p>Dear ${Fullname},</p>
-           <p>Your new admin password is: <strong>${newPassword}</strong>. 
+           <p>Your new password is: <strong>${newPassword}</strong>. 
            Please log in and change it for security.</p>`,
   };
 
